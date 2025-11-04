@@ -31,3 +31,23 @@ class ConfigFlow(config_entries.ConfigFlow, domain="termo_bucuresti"):
             data_schema=schema, 
             errors=errors
         )
+
+# În config_flow.py - adaugă interval personalizat
+schema = vol.Schema({
+    vol.Required("strada"): str,
+    vol.Required("zona", default="toate"): vol.In({
+        "toate": "Toate zonele", 
+        "sector1": "Sector 1",
+        "sector2": "Sector 2",
+        "sector3": "Sector 3",
+        # ... alte sectoare
+    }),
+    vol.Required("interval_actualizare", default=30): vol.All(
+        vol.Coerce(int), vol.Range(min=5, max=240)
+    )
+})
+
+# În sensor.py - folosește intervalul configurat
+def __init__(self, strada: str, service_type: str, update_interval: int):
+    self._update_interval = update_interval
+    # ...
