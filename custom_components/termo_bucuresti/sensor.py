@@ -106,3 +106,53 @@ class TermoSensor(SensorEntity):
        "tip_intrerupere": "",
        "link_informatii": "https://www.cmteb.ro/functionare_sistem_termoficare.php"
    }
+
+# Adaugă în async_setup_entry
+async def async_setup_entry(
+    hass: HomeAssistant,
+    entry: ConfigEntry,
+    async_add_entities: AddEntitiesCallback,
+) -> None:
+    """Set up sensor."""
+    strada = entry.data["strada"]
+    
+    sensors = [
+        TermoSensor(strada, "apă"),
+        TermoSensor(strada, "căldură"),
+        TermoStatisticsSensor(),  # <-- Senzor nou pentru statistici
+    ]
+    
+    async_add_entities(sensors, True)
+
+class TermoStatisticsSensor(SensorEntity):
+    """Senzor pentru statistici Termo."""
+    
+    def __init__(self):
+        self._attr_name = "Termo Statistici"
+        self._attr_unique_id = "termo_statistici_global"
+        self._attr_icon = "mdi:chart-line"
+        self._attr_native_value = 0
+        
+        self._interruption_history = []
+        self._attr_extra_state_attributes = {
+            "total_intreruperi": 0,
+            "ultimele_24h": 0,
+            "ultimele_7_zile": 0,
+            "ultima_intrerupere": None,
+            "durata_medie": "0h",
+            "strada_cea_afectata": ""
+        }
+
+    async def async_update(self):
+        """Update statistics."""
+        # Aici vin datele din istoricul întreruperilor
+        # Momentant exemplu cu date statice
+        self._attr_native_value = len(self._interruption_history)
+        self._attr_extra_state_attributes.update({
+            "total_intreruperi": len(self._interruption_history),
+            "ultimele_24h": 2,  # Exemplu
+            "ultimele_7_zile": 5,  # Exemplu
+            "ultima_intrerupere": "2024-01-15 14:30:00",
+            "durata_medie": "3h",
+            "strada_cea_afectata": "Victoriei"
+        })
