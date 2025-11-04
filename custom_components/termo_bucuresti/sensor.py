@@ -93,3 +93,16 @@ class TermoSensor(SensorEntity):
             
         except Exception:
             self._attr_native_value = "Eroare procesare"
+
+   # În sensor.py - adaugă mai multe atribute
+   self._attr_extra_state_attributes = {
+       "strada": strada,
+       "zona": entry.data.get("zona", "toate"),
+       "stare_serviciu": "Necunoscută",
+       "ultima_actualizare": None,
+       "detaliu_intrerupere": "",
+       "ora_estimare_final": "",
+       "zona_afectata": "",
+       "tip_intrerupere": "",
+       "link_informatii": "https://www.cmteb.ro/functionare_sistem_termoficare.php"
+   }
