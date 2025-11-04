@@ -23,3 +23,14 @@ Monitorizează întreruperile la apă și căldură de la Termoenergetica Bucure
 
 - `sensor.termo_apa_strada` - Starea apei
 - `sensor.termo_caldura_strada` - Starea căldurii
+
+## Stări posibile
+
+- **Normal** - Serviciul funcționează normal
+- **Întrerupt** - Serviciul este întrerupt
+- **Eroare conexiune** - Problema la conectarea la site
+- **Necunoscut** - Starea inițială
+
+## Suport
+
+Pentru probleme, verifică logs-urile Home Assistant.
