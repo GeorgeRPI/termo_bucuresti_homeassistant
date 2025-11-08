@@ -7,7 +7,7 @@ Monitorizează întreruperile la apă și căldură de la Termoenergetica Bucure
 1. Deschide HACS în Home Assistant
 2. Click pe "Integrări Custom"
 3. Click pe ⋮ (trei puncte) și selectează "Repository-uri custom"
-4. Adaugă: `https://github.com/username/termo_bucuresti_homeassistant`
+4. Adaugă: `https://github.com/GeorgeRPI/termo_bucuresti_homeassistant`
 5. Selectează categoria "Integration"
 6. Caută "Termo Bucuresti" și instalează
 
